@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ========================
+           VARIABLES Y RESET
+        ======================== */
+        :root {
+            --azul-profundo:    #020B18;
+            --azul-oscuro:      #061428;
+            --azul-medio:       #0A2A4A;
+            --azul-base:        #0D3B6E;
+            --azul-acento:      #1565C0;
+            --azul-brillante:   #1E88E5;
+            --azul-claro:       #42A5F5;
+            --azul-palido:      #90CAF9;
+            --azul-hielo:       #E3F2FD;
+            --blanco:           #F8FBFF;
+            --borde:            rgba(66, 165, 245, 0.2);
+            --borde-hover:      rgba(66, 165, 245, 0.6);
+            --sombra:           0 8px 32px rgba(2, 11, 24, 0.6);
+            --sombra-suave:     0 2px 12px rgba(13, 59, 110, 0.3);
+            --transicion:       all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--azul-profundo);
+            color: var(--blanco);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========================
+           FONDO ANIMADO
+        ======================== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 10% 20%, rgba(21, 101, 192, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 80% at 90% 80%, rgba(13, 59, 110, 0.2) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(30, 136, 229, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========================
+           TOP BAR
+        ======================== */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 64px;
+            background: rgba(6, 20, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--borde);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        /* Espacio para el logo */
+        .topbar-logo {
+            width: 30px;
+            height: 60px;
+            
+            flex-shrink: 0;
+        }
+
+        /* Cuando agregues tu imagen, el borde desaparece */
+        .topbar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* Texto de placeholder visible solo si no hay imagen */
+        .topbar-logo .logo-placeholder {
+            font-size: 0.55rem;
+            color: rgba(144, 202, 249, 0.4);
+            text-align: center;
+            line-height: 1.3;
+            letter-spacing: 0.04em;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Título centrado en la topbar */
+        .topbar-titulo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--blanco);
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .topbar-titulo span {
+            color: var(--azul-claro);
+        }
+
+        /* ========================
+           MENU HAMBURGUESA
+        ======================== */
+        .hamburger-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(66, 165, 245, 0.1);
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: var(--transicion);
+            margin-left: 8px;
+        }
+
+        .hamburger-btn:hover {
+            background: rgba(66, 165, 245, 0.2);
+            border-color: var(--borde-hover);
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 18px;
+            height: 1.5px;
+            background: var(--azul-claro);
+            border-radius: 2px;
+            transition: var(--transicion);
+        }
+
+        .hamburger-btn.abierto span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+        .hamburger-btn.abierto span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger-btn.abierto span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        /* ========================
+           PANEL LATERAL
+        ======================== */
+        .panel-lateral {
+            position: fixed;
+            top: 64px;
+            right: -320px;
+            width: 300px;
+            height: calc(100vh - 64px);
+            background: rgba(6, 20, 40, 0.97);
+            backdrop-filter: blur(24px);
+            border-left: 1px solid var(--borde);
+            z-index: 999;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 32px 24px;
+            overflow-y: auto;
+        }
+
+        .panel-lateral.abierto {
+            right: 0;
+        }
+
+        .panel-titulo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--azul-claro);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--borde);
+            letter-spacing: 0.04em;
+        }
+
+        .panel-seccion {
+            margin-bottom: 32px;
+        }
+
+        .panel-seccion-titulo {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--azul-palido);
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+
+        .panel-opcion {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transicion);
+            color: var(--azul-palido);
+            font-size: 0.875rem;
+            margin-bottom: 4px;
+            border: 1px solid transparent;
+        }
+
+        .panel-opcion:hover {
+            background: rgba(66, 165, 245, 0.1);
+            border-color: var(--borde);
+            color: var(--blanco);
+        }
+
+        .panel-opcion .icono {
+            width: 32px;
+            height: 32px;
+            background: rgba(66, 165, 245, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .panel-badge {
+            margin-left: auto;
+            background: var(--azul-acento);
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* Items de contacto en el panel */
+        .panel-contacto-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid var(--borde);
+            background: rgba(10, 42, 74, 0.3);
+            margin-bottom: 12px;
+            transition: var(--transicion);
+        }
+
+        .panel-contacto-item:hover {
+            background: rgba(10, 42, 74, 0.6);
+            border-color: var(--borde-hover);
+        }
+
+        .panel-contacto-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--azul-palido);
+            opacity: 0.6;
+            margin-bottom: 4px;
+        }
+
+        .panel-contacto-valor {
+            color: var(--blanco);
+            font-size: 0.88rem;
+            text-decoration: none;
+            font-weight: 400;
+            transition: var(--transicion);
+            display: block;
+            word-break: break-all;
+        }
+
+        .panel-contacto-valor:hover {
+            color: var(--azul-claro);
+        }
+
+        /* ========================
+           CONTENIDO PRINCIPAL
+        ======================== */
+        .contenido {
+            position: relative;
+            z-index: 1;
+            padding-top: 64px;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-bottom: 64px;
+        }
+
+        .formulario-wrapper {
+            width: 100%;
+            max-width: 720px;
+            padding: 48px 32px 32px;
+        }
+
+        /* ========================
+           ENCABEZADO
+        ======================== */
+        .encabezado {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fadeInDown 0.7s ease both;
+        }
+
+        .encabezado-etiqueta {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--azul-claro);
+            background: rgba(66, 165, 245, 0.08);
+            border: 1px solid rgba(66, 165, 245, 0.2);
+            padding: 6px 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .encabezado h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            color: var(--blanco);
+            line-height: 1.2;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .encabezado h1 em {
+            font-style: italic;
+            color: var(--azul-claro);
+        }
+
+        .encabezado p {
+            color: var(--azul-palido);
+            font-size: 0.9rem;
+            font-weight: 300;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* ========================
+           TARJETA FORMULARIO
+        ======================== */
+        .tarjeta {
+            background: rgba(6, 20, 40, 0.6);
+            border: 1px solid var(--borde);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(12px);
+            animation: fadeInUp 0.7s ease 0.2s both;
+            box-shadow: var(--sombra);
+        }
+
+        /* ========================
+           SECCIONES DEL FORM
+        ======================== */
+        .seccion {
+            margin-bottom: 36px;
+        }
+
+        .seccion-titulo {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--azul-claro);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--borde);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seccion-titulo::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: var(--azul-claro);
+            border-radius: 50%;
+        }
+
+        /* ========================
+           GRID Y GRUPOS
+        ======================== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grupo {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .grupo.completo {
+            grid-column: 1 / -1;
+        }
+
+        /* ========================
+           LABELS E INPUTS
+        ======================== */
+        label {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--azul-palido);
+            letter-spacing: 0.03em;
+        }
+
+        label .requerido {
+            color: var(--azul-brillante);
+            margin-left: 3px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            background: rgba(10, 42, 74, 0.5);
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--blanco);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: var(--transicion);
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(144, 202, 249, 0.3);
+            font-weight: 300;
+        }
+
+        input:hover,
+        textarea:hover,
+        select:hover {
+            border-color: rgba(66, 165, 245, 0.4);
+            background: rgba(10, 42, 74, 0.7);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--azul-brillante);
+            background: rgba(10, 42, 74, 0.8);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15),
+                        inset 0 1px 0 rgba(66, 165, 245, 0.1);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.6) sepia(1) saturate(2) hue-rotate(185deg);
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 130px;
+            line-height: 1.6;
+        }
+
+        select option {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+        }
+
+        /* ========================
+           CHECKBOX PERSONALIZADO
+        ======================== */
+        .checkbox-grupo {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(10, 42, 74, 0.3);
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transicion);
+            margin-top: 8px;
+        }
+
+        .checkbox-grupo:hover {
+            border-color: rgba(66, 165, 245, 0.4);
+            background: rgba(10, 42, 74, 0.5);
+        }
+
+        .checkbox-grupo input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            padding: 0;
+            border-radius: 4px;
+            cursor: pointer;
+            accent-color: var(--azul-brillante);
+            margin-top: 1px;
+            position: relative;
+            z-index: 2;
+            pointer-events: all;
+        }
+
+        .checkbox-grupo .checkbox-texto {
+            font-size: 0.82rem;
+            color: var(--azul-palido);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* ========================
+           BOTON ENVIAR
+        ======================== */
+        .btn-enviar {
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--azul-acento) 0%, var(--azul-brillante) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transicion);
+            position: relative;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .btn-enviar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: var(--transicion);
+        }
+
+        .btn-enviar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(30, 136, 229, 0.4);
+        }
+
+        .btn-enviar:hover::before {
+            opacity: 1;
+        }
+
+        .btn-enviar:active {
+            transform: translateY(0);
+        }
+
+        /* ========================
+           NOTA INFERIOR
+        ======================== */
+        .nota {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.75rem;
+            color: var(--azul-palido);
+            opacity: 0.5;
+            line-height: 1.6;
+        }
+
+        /* ========================
+           OVERLAY
+        ======================== */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 11, 24, 0.5);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .overlay.activo {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ========================
+           ANIMACIONES
+        ======================== */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================
+           RESPONSIVE
+        ======================== */
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .tarjeta { padding: 28px 20px; }
+            .formulario-wrapper { padding: 32px 16px 32px; }
+            .topbar-titulo { font-size: 0.85rem; letter-spacing: 0.03em; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================
+         TOP BAR
+    ======================== -->
+    <header class="topbar">
+
+        <!-- LOGO: reemplaza el comentario con tu imagen -->
+        <!-- Ejemplo: <img src="tu-logo.png" alt="Logo"> -->
+        <div class="topbar-logo">
+            <span class="logo-placeholder"><img src="VOI-Logo.png" alt="Logo"></span>
+            <!-- <img src="tu-logo.png" alt="Logo de la iglesia"> -->
+        </div>
+
+        <!-- Título centrado -->
+        <p class="topbar-titulo">Alcance Victoria <span>Mexicali Centro</span></p>
+
+        <button class="hamburger-btn" id="btnHamburguesa" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- ========================
+         PANEL LATERAL
+    ======================== -->
+    <aside class="panel-lateral" id="panelLateral">
+        <p class="panel-titulo">Contacto</p>
+
+        <div class="panel-seccion">
+
+            <div class="panel-contacto-item">
+                <span class="icono">📞</span>
+                <div>
+                    <p class="panel-contacto-label">Teléfono 1</p>
+                    <!-- Modifica el número aquí -->
+                    <a href="tel:+526861234567" class="panel-contacto-valor">+52 686 123 4567</a>
+                </div>
+            </div>
+
+            <div class="panel-contacto-item">
+                <span class="icono">📱</span>
+                <div>
+                    <p class="panel-contacto-label">Teléfono 2</p>
+                    <!-- Modifica el número aquí -->
+                    <a href="tel:+526867654321" class="panel-contacto-valor">+52 686 765 4321</a>
+                </div>
+            </div>
+
+            <div class="panel-contacto-item">
+                <span class="icono">📘</span>
+                <div>
+                    <p class="panel-contacto-label">Facebook</p>
+                    <!-- Modifica el enlace y nombre aquí -->
+                    <a href="https://www.facebook.com/avmxlc" target="_blank" class="panel-contacto-valor">
+                        AV - Mxli Centro
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- Overlay al abrir menú -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ========================
+         FORMULARIO
+    ======================== -->
+    <main class="contenido">
+        <div class="formulario-wrapper">
+
+            <div class="encabezado">
+                <span class="encabezado-etiqueta">Registro de miembros</span>
+                <h1>Comparte tu <em>información</em></h1>
+                <p>Completa el formulario para registrarte y<br>enviarnos tu petición de oración.</p>
+            </div>
+
+            <div class="tarjeta">
+                <form id="formularioRegistro">
+
+                    <!-- DATOS PERSONALES -->
+                    <div class="seccion">
+                        <p class="seccion-titulo">Datos personales</p>
+                        <div class="grid-2">
+
+                            <div class="grupo completo">
+                                <label>Nombre y apellido <span class="requerido">*</span></label>
+                                <input id="nombre" type="text" placeholder="Ej. Juan García López" required>
+                            </div>
+
+                            <div class="grupo">
+                                <label>Edad <span class="requerido">*</span></label>
+                                <input id="edad" type="number" placeholder="Ej. 28" min="1" max="120" required>
+                            </div>
+
+                            <div class="grupo">
+                                <label>Fecha de nacimiento <span class="requerido">*</span></label>
+                                <input id="fechaNacimiento" type="date" required>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- CONTACTO -->
+                    <div class="seccion">
+                        <p class="seccion-titulo">Información de contacto</p>
+                        <div class="grid-2">
+
+                            <div class="grupo">
+                                <label>Número de teléfono <span class="requerido">*</span></label>
+                                <input id="telefono" type="tel" placeholder="Ej. +52 55 1234 5678" required>
+                            </div>
+
+                            <div class="grupo">
+                                <label>Correo electrónico <span class="requerido">*</span></label>
+                                <input id="correo" type="email" placeholder="Ej. correo@ejemplo.com">
+                            </div>
+
+                            <div class="grupo completo">
+                                <label>Dirección</label>
+                                <input id="direccion" type="text" placeholder="Calle, número, colonia, ciudad">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- PETICION DE ORACION -->
+                    <div class="seccion">
+                        <p class="seccion-titulo">Petición de oración</p>
+                        <div class="grupo">
+                            <label>Cuéntanos tu petición</label>
+                            <textarea id="peticion" placeholder="Escribe aquí tu petición de oración. Toda información es confidencial y será tratada con respeto..."></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- MENSAJE DE ESTADO -->
+                    <div id="mensajeEstado" style="display:none; text-align:center; padding:14px; border-radius:10px; margin-bottom:16px; font-size:0.88rem;"></div>
+
+                    <!-- BOTON -->
+                    <button type="submit" class="btn-enviar" id="btnEnviar">
+                        Enviar registro
+                    </button>
+
+                    <p class="nota">
+                        Los campos marcados con <strong style="color:var(--azul-brillante)">*</strong> son obligatorios.<br>
+                        Tu información es confidencial y no será compartida.
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ========================
+         JAVASCRIPT
+    ======================== -->
+    <script>
+        // ========================
+        // MENU HAMBURGUESA
+        // ========================
+        const btnHamburguesa = document.getElementById('btnHamburguesa');
+        const panelLateral   = document.getElementById('panelLateral');
+        const overlay        = document.getElementById('overlay');
+
+        function toggleMenu() {
+            panelLateral.classList.toggle('abierto');
+            btnHamburguesa.classList.toggle('abierto');
+            overlay.classList.toggle('activo');
+        }
+
+        btnHamburguesa.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && panelLateral.classList.contains('abierto'))
+                toggleMenu();
+        });
+
+        // ========================
+        // ENVIO A GOOGLE SHEETS
+        // ========================
+        const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbwHCERH7_G15jxcwP4zPGHsAv2IduAEtQPiIrmqlEOAD1nHT4QNhbDjroZgchWK6iJR/exec";
+
+        const formulario    = document.getElementById('formularioRegistro');
+        const btnEnviar     = document.getElementById('btnEnviar');
+        const mensajeEstado = document.getElementById('mensajeEstado');
+
+        function mostrarMensaje(texto, exito) {
+            mensajeEstado.style.display      = 'block';
+            mensajeEstado.style.background   = exito ? 'rgba(21, 101, 192, 0.2)' : 'rgba(200, 50, 50, 0.2)';
+            mensajeEstado.style.border       = exito ? '1px solid #1565C0' : '1px solid #c83232';
+            mensajeEstado.style.color        = exito ? '#90CAF9' : '#ff8080';
+            mensajeEstado.textContent        = texto;
+        }
+
+        formulario.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Recoger los datos de cada campo
+            const datos = {
+                nombre:          document.getElementById('nombre').value.trim(),
+                edad:            document.getElementById('edad').value.trim(),
+                fechaNacimiento: document.getElementById('fechaNacimiento').value,
+                telefono:        document.getElementById('telefono').value.trim(),
+                correo:          document.getElementById('correo').value.trim(),
+                direccion:       document.getElementById('direccion').value.trim(),
+                peticion:        document.getElementById('peticion').value.trim()
+            };
+
+            // Cambiar el botón mientras envía
+            btnEnviar.textContent  = 'Enviando...';
+            btnEnviar.disabled     = true;
+            mensajeEstado.style.display = 'none';
+
+            // Enviar los datos al Apps Script
+            fetch(URL_SCRIPT, {
+                method:  'POST',
+                mode:    'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(datos)
+            })
+            .then(() => {
+                // no-cors no nos deja leer la respuesta
+                // pero si llegó aquí es porque se envió correctamente
+                mostrarMensaje('✓ Registro enviado correctamente. ¡Gracias!', true);
+                formulario.reset();
+            })
+            .catch(() => {
+                mostrarMensaje('✗ Hubo un error al enviar. Verifica tu conexión e intenta de nuevo.', false);
+            })
+            .finally(() => {
+                btnEnviar.textContent = 'Enviar registro';
+                btnEnviar.disabled    = false;
+            });
+        });
+    </script>
+
+</body>
+</html>
