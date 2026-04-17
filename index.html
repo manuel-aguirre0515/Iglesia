@@ -751,6 +751,30 @@
                                 <input id="direccion" type="text" placeholder="Calle, número, colonia, ciudad">
                             </div>
 
+                            <div class="grupo completo">
+                                 <label>Selecciona una categoría <span class="requerido">*</span></label>
+                                 <select id="miLista" required>
+                                 <option value="" disabled selected>Elige una opción...</option>
+                                 <option value="Opción 1">Opción 1</option>
+                                 <option value="Opción 2">Opción 2</option>
+                                 <option value="Opción 3">Opción 3</option>
+                                 <option value="Opción 4">Opción 4</option>
+                                 <option value="Opción 5">Opción 5</option>
+                                 <option value="Opción 6">Opción 6</option>
+                                 <option value="Opción 7">Opción 7</option>
+                                 <option value="Opción 8">Opción 8</option>
+                                 <option value="Opción 9">Opción 9</option>
+                                 <option value="Opción 10">Opción 10</option>
+                         </select>
+                          </div>
+
+                            <div class="grupo completo">
+                                 <label class="checkbox-grupo">
+                                 <input type="checkbox" id="miCasilla">
+                                 <span class="checkbox-texto">Miembro de Unidos Podemos</span>
+                                 </label>
+                            </div>
+
                         </div>
                     </div>
 
@@ -849,10 +873,14 @@
             const datos = {
                 nombre:          document.getElementById('nombre').value.trim(),
                 edad:            document.getElementById('edad').value.trim(),
-                fechaNacimiento: fechaEnTexto, // <--- Aquí mandamos la fecha ya transformada
+                fechaNacimiento: fechaEnTexto, 
                 telefono:        document.getElementById('telefono').value.trim(),
                 direccion:       document.getElementById('direccion').value.trim(),
-                peticion:        document.getElementById('peticion').value.trim()
+                peticion:        document.getElementById('peticion').value.trim(),
+                
+                // ---- AGREGA ESTAS DOS LÍNEAS AQUÍ ABAJO ----
+                opcionElegida:   document.getElementById('miLista').value,
+                casilla:         document.getElementById('miCasilla').checked ? "si" : "no"
             };
 
             // Cambiar el botón mientras envía
