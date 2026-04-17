@@ -827,11 +827,29 @@
         formulario.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Recoger los datos de cada campo
+            // 1. Obtenemos el valor del input (llega como YYYY-MM-DD)
+            const fechaInput = document.getElementById('fechaNacimiento').value;
+            let fechaEnTexto = "";
+
+            // 2. Si el usuario seleccionó una fecha, la transformamos a texto
+            if (fechaInput) {
+                const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+                const partes = fechaInput.split('-'); // Separa en [Año, Mes, Día]
+                
+                const anio = partes[0];
+                const mes = meses[parseInt(partes[1]) - 1]; // Busca el nombre del mes en la lista
+                const dia = partes[2];
+                
+                // Crea el formato deseado (Ej: "15 de mayo de 2007")
+                // Si lo prefieres con guiones, cámbialo a: `${dia}-${mes}-${anio}`
+                fechaEnTexto = `${dia} de ${mes} de ${anio}`; 
+            }
+
+            // 3. Guardamos los datos incluyendo la nueva fecha en texto
             const datos = {
                 nombre:          document.getElementById('nombre').value.trim(),
                 edad:            document.getElementById('edad').value.trim(),
-                fechaNacimiento: document.getElementById('fechaNacimiento').value,
+                fechaNacimiento: fechaEnTexto, // <--- Aquí mandamos la fecha ya transformada
                 telefono:        document.getElementById('telefono').value.trim(),
                 direccion:       document.getElementById('direccion').value.trim(),
                 peticion:        document.getElementById('peticion').value.trim()
