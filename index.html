@@ -504,6 +504,8 @@
             cursor: pointer;
             transition: var(--transicion);
             margin-top: 8px;
+            pointer-events: all; /* Asegúrate de que permita clics */
+            cursor: pointer;
         }
 
         .checkbox-grupo:hover {
@@ -523,6 +525,9 @@
             position: relative;
             z-index: 2;
             pointer-events: all;
+            pointer-events: all; /* Importante para que el check reaccione */
+            position: relative;
+            z-index: 10;
         }
 
         .checkbox-grupo .checkbox-texto {
@@ -769,10 +774,12 @@
                           </div>
 
                             <div class="grupo completo">
-                                 <label class="checkbox-grupo">
-                                 <input type="checkbox" id="miCasilla">
-                                 <span class="checkbox-texto">Miembro de Unidos Podemos</span>
-                                 </label>
+                                <div class="checkbox-grupo">
+                                <input type="checkbox" id="miCasilla">
+                                <label for="miCasilla" class="checkbox-texto">
+                                Miembro de Unidos Podemos
+                                </label>
+                            </div>
                             </div>
 
                         </div>
