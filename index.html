@@ -7,9 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="VOI-Logo.ico" />
     <style>
-        /* ========================
-           VARIABLES Y RESET
-        ======================== */
         :root {
             --azul-profundo:    #020B18;
             --azul-oscuro:      #061428;
@@ -19,21 +16,14 @@
             --azul-brillante:   #1E88E5;
             --azul-claro:       #42A5F5;
             --azul-palido:      #90CAF9;
-            --azul-hielo:       #E3F2FD;
             --blanco:           #F8FBFF;
             --borde:            rgba(66, 165, 245, 0.2);
             --borde-hover:      rgba(66, 165, 245, 0.6);
             --sombra:           0 8px 32px rgba(2, 11, 24, 0.6);
-            --sombra-suave:     0 2px 12px rgba(13, 59, 110, 0.3);
             --transicion:       all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
@@ -44,9 +34,6 @@
             overflow-x: hidden;
         }
 
-        /* ========================
-           FONDO ANIMADO
-        ======================== */
         body::before {
             content: '';
             position: fixed;
@@ -59,14 +46,10 @@
             z-index: 0;
         }
 
-        /* ========================
-           TOP BAR
-        ======================== */
+        /* TOP BAR */
         .topbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             height: 64px;
             background: rgba(6, 20, 40, 0.85);
@@ -79,34 +62,9 @@
             padding: 0 32px;
         }
 
-        /* Espacio para el logo */
-        .topbar-logo {
-            width: 30px;
-            height: 60px;
-            
-            flex-shrink: 0;
-        }
+        .topbar-logo { width: 30px; height: 60px; flex-shrink: 0; }
+        .topbar-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
 
-        /* Cuando agregues tu imagen, el borde desaparece */
-        .topbar-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        /* Texto de placeholder visible solo si no hay imagen */
-        .topbar-logo .logo-placeholder {
-            font-size: 0.55rem;
-            color: rgba(144, 202, 249, 0.4);
-            text-align: center;
-            line-height: 1.3;
-            letter-spacing: 0.04em;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* Título centrado en la topbar */
         .topbar-titulo {
             position: absolute;
             left: 50%;
@@ -120,16 +78,11 @@
             pointer-events: none;
         }
 
-        .topbar-titulo span {
-            color: var(--azul-claro);
-        }
+        .topbar-titulo span { color: var(--azul-claro); }
 
-        /* ========================
-           MENU HAMBURGUESA
-        ======================== */
+        /* HAMBURGUESA */
         .hamburger-btn {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             background: rgba(66, 165, 245, 0.1);
             border: 1px solid var(--borde);
             border-radius: 8px;
@@ -143,38 +96,16 @@
             margin-left: 8px;
         }
 
-        .hamburger-btn:hover {
-            background: rgba(66, 165, 245, 0.2);
-            border-color: var(--borde-hover);
-        }
+        .hamburger-btn:hover { background: rgba(66, 165, 245, 0.2); border-color: var(--borde-hover); }
+        .hamburger-btn span { display: block; width: 18px; height: 1.5px; background: var(--azul-claro); border-radius: 2px; transition: var(--transicion); }
+        .hamburger-btn.abierto span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .hamburger-btn.abierto span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger-btn.abierto span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-        .hamburger-btn span {
-            display: block;
-            width: 18px;
-            height: 1.5px;
-            background: var(--azul-claro);
-            border-radius: 2px;
-            transition: var(--transicion);
-        }
-
-        .hamburger-btn.abierto span:nth-child(1) {
-            transform: translateY(6.5px) rotate(45deg);
-        }
-        .hamburger-btn.abierto span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        .hamburger-btn.abierto span:nth-child(3) {
-            transform: translateY(-6.5px) rotate(-45deg);
-        }
-
-        /* ========================
-           PANEL LATERAL
-        ======================== */
+        /* PANEL LATERAL */
         .panel-lateral {
             position: fixed;
-            top: 64px;
-            right: -320px;
+            top: 64px; right: -320px;
             width: 300px;
             height: calc(100vh - 64px);
             background: rgba(6, 20, 40, 0.97);
@@ -186,9 +117,7 @@
             overflow-y: auto;
         }
 
-        .panel-lateral.abierto {
-            right: 0;
-        }
+        .panel-lateral.abierto { right: 0; }
 
         .panel-titulo {
             font-family: 'Cormorant Garamond', serif;
@@ -200,62 +129,8 @@
             letter-spacing: 0.04em;
         }
 
-        .panel-seccion {
-            margin-bottom: 32px;
-        }
+        .panel-seccion { margin-bottom: 32px; }
 
-        .panel-seccion-titulo {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--azul-palido);
-            margin-bottom: 12px;
-            opacity: 0.7;
-        }
-
-        .panel-opcion {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transicion);
-            color: var(--azul-palido);
-            font-size: 0.875rem;
-            margin-bottom: 4px;
-            border: 1px solid transparent;
-        }
-
-        .panel-opcion:hover {
-            background: rgba(66, 165, 245, 0.1);
-            border-color: var(--borde);
-            color: var(--blanco);
-        }
-
-        .panel-opcion .icono {
-            width: 32px;
-            height: 32px;
-            background: rgba(66, 165, 245, 0.1);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .panel-badge {
-            margin-left: auto;
-            background: var(--azul-acento);
-            color: white;
-            font-size: 0.65rem;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-
-        /* Items de contacto en el panel */
         .panel-contacto-item {
             display: flex;
             align-items: flex-start;
@@ -268,62 +143,23 @@
             transition: var(--transicion);
         }
 
-        .panel-contacto-item:hover {
-            background: rgba(10, 42, 74, 0.6);
-            border-color: var(--borde-hover);
-        }
+        .panel-contacto-item:hover { background: rgba(10, 42, 74, 0.6); border-color: var(--borde-hover); }
+        .panel-contacto-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--azul-palido); opacity: 0.6; margin-bottom: 4px; }
+        .panel-contacto-valor { color: var(--blanco); font-size: 0.88rem; text-decoration: none; font-weight: 400; transition: var(--transicion); display: block; word-break: break-all; }
+        .panel-contacto-valor:hover { color: var(--azul-claro); }
 
-        .panel-contacto-label {
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--azul-palido);
-            opacity: 0.6;
-            margin-bottom: 4px;
-        }
+        .icono { width: 32px; height: 32px; background: rgba(66, 165, 245, 0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
 
-        .panel-contacto-valor {
-            color: var(--blanco);
-            font-size: 0.88rem;
-            text-decoration: none;
-            font-weight: 400;
-            transition: var(--transicion);
-            display: block;
-            word-break: break-all;
-        }
+        /* OVERLAY */
+        .overlay { position: fixed; inset: 0; background: rgba(2, 11, 24, 0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(2px); }
+        .overlay.activo { opacity: 1; pointer-events: all; }
 
-        .panel-contacto-valor:hover {
-            color: var(--azul-claro);
-        }
+        /* CONTENIDO */
+        .contenido { position: relative; z-index: 1; padding-top: 64px; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding-bottom: 64px; }
+        .formulario-wrapper { width: 100%; max-width: 720px; padding: 48px 32px 32px; }
 
-        /* ========================
-           CONTENIDO PRINCIPAL
-        ======================== */
-        .contenido {
-            position: relative;
-            z-index: 1;
-            padding-top: 64px;
-            min-height: 100vh;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-bottom: 64px;
-        }
-
-        .formulario-wrapper {
-            width: 100%;
-            max-width: 720px;
-            padding: 48px 32px 32px;
-        }
-
-        /* ========================
-           ENCABEZADO
-        ======================== */
-        .encabezado {
-            text-align: center;
-            margin-bottom: 48px;
-            animation: fadeInDown 0.7s ease both;
-        }
+        /* ENCABEZADO */
+        .encabezado { text-align: center; margin-bottom: 48px; animation: fadeInDown 0.7s ease both; }
 
         .encabezado-etiqueta {
             display: inline-block;
@@ -338,48 +174,14 @@
             margin-bottom: 20px;
         }
 
-        .encabezado h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 300;
-            color: var(--blanco);
-            line-height: 1.2;
-            margin-bottom: 12px;
-            letter-spacing: -0.01em;
-        }
+        .encabezado h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; color: var(--blanco); line-height: 1.2; margin-bottom: 12px; }
+        .encabezado h1 em { font-style: italic; color: var(--azul-claro); }
+        .encabezado p { color: var(--azul-palido); font-size: 0.9rem; font-weight: 300; opacity: 0.8; line-height: 1.6; }
 
-        .encabezado h1 em {
-            font-style: italic;
-            color: var(--azul-claro);
-        }
+        /* TARJETA */
+        .tarjeta { background: rgba(6, 20, 40, 0.6); border: 1px solid var(--borde); border-radius: 20px; padding: 40px; backdrop-filter: blur(12px); animation: fadeInUp 0.7s ease 0.2s both; box-shadow: var(--sombra); }
 
-        .encabezado p {
-            color: var(--azul-palido);
-            font-size: 0.9rem;
-            font-weight: 300;
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        /* ========================
-           TARJETA FORMULARIO
-        ======================== */
-        .tarjeta {
-            background: rgba(6, 20, 40, 0.6);
-            border: 1px solid var(--borde);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(12px);
-            animation: fadeInUp 0.7s ease 0.2s both;
-            box-shadow: var(--sombra);
-        }
-
-        /* ========================
-           SECCIONES DEL FORM
-        ======================== */
-        .seccion {
-            margin-bottom: 36px;
-        }
+        .seccion { margin-bottom: 36px; }
 
         .seccion-titulo {
             font-size: 0.68rem;
@@ -394,50 +196,16 @@
             gap: 10px;
         }
 
-        .seccion-titulo::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 4px;
-            background: var(--azul-claro);
-            border-radius: 50%;
-        }
+        .seccion-titulo::before { content: ''; display: inline-block; width: 4px; height: 4px; background: var(--azul-claro); border-radius: 50%; }
 
-        /* ========================
-           GRID Y GRUPOS
-        ======================== */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grupo { display: flex; flex-direction: column; gap: 8px; }
+        .grupo.completo { grid-column: 1 / -1; }
 
-        .grupo {
-            grid-column: 1 / -1;
-        }
+        label { font-size: 0.78rem; font-weight: 500; color: var(--azul-palido); letter-spacing: 0.03em; }
+        label .requerido { color: var(--azul-brillante); margin-left: 3px; }
 
-        .grupo.completo {
-            grid-column: 1 / -1;
-        }
-
-        /* ========================
-           LABELS E INPUTS
-        ======================== */
-        label {
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: var(--azul-palido);
-            letter-spacing: 0.03em;
-        }
-
-        label .requerido {
-            color: var(--azul-brillante);
-            margin-left: 3px;
-        }
-
-        input,
-        textarea,
-        select {
+        input, textarea, select {
             width: 100%;
             background: rgba(10, 42, 74, 0.5);
             border: 1px solid var(--borde);
@@ -453,87 +221,108 @@
             -webkit-appearance: none;
         }
 
-        input::placeholder,
-        textarea::placeholder {
-            color: rgba(144, 202, 249, 0.3);
-            font-weight: 300;
-        }
+        input::placeholder, textarea::placeholder { color: rgba(144, 202, 249, 0.3); font-weight: 300; }
+        input:hover, textarea:hover, select:hover { border-color: rgba(66, 165, 245, 0.4); background: rgba(10, 42, 74, 0.7); }
+        input:focus, textarea:focus, select:focus { border-color: var(--azul-brillante); background: rgba(10, 42, 74, 0.8); box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15); }
 
-        input:hover,
-        textarea:hover,
-        select:hover {
-            border-color: rgba(66, 165, 245, 0.4);
-            background: rgba(10, 42, 74, 0.7);
-        }
-
-        
-
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.6) sepia(1) saturate(2) hue-rotate(185deg);
-            cursor: pointer;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 130px;
-            line-height: 1.6;
-        }
-
-        select option {
-            background: var(--azul-oscuro);
-            color: var(--blanco);
-        }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.6) sepia(1) saturate(2) hue-rotate(185deg); cursor: pointer; }
+        textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+        select option { background: var(--azul-oscuro); color: var(--blanco); }
 
         /* ========================
-           CHECKBOX PERSONALIZADO
+           MINISTERIOS — CHECKBOXES MULTIPLES
         ======================== */
-        .checkbox-grupo input[type="checkbox"] {
-            appearance: checkbox !important; /* <--- ESTO ES LO MÁS IMPORTANTE */
-            -webkit-appearance: checkbox !important; 
-            width: 18px;
-            height: 18px;
-            min-width: 18px;
-            cursor: pointer;
-            
-            margin-top: 1px;
-            position: relative;
-            z-index: 10;
-            pointer-events: all;
-}
-
-        .checkbox-grupo:hover {
-            border-color: rgba(66, 165, 245, 0.4);
-            background: rgba(10, 42, 74, 0.5);
+        .ministerios-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 4px;
         }
 
-        .checkbox-grupo input[type="checkbox"] {
+        .ministerio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(10, 42, 74, 0.4);
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .ministerio-item:hover { background: rgba(10, 42, 74, 0.7); border-color: rgba(66, 165, 245, 0.4); }
+
+        .ministerio-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            padding: 0;
+            cursor: pointer;
+            accent-color: var(--azul-brillante);
+            appearance: checkbox;
+            -webkit-appearance: checkbox;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            flex-shrink: 0;
+        }
+
+        .ministerio-item input[type="checkbox"]:focus { box-shadow: none; border: none; }
+
+        .ministerio-item label {
+            font-size: 0.82rem;
+            color: var(--azul-palido);
+            cursor: pointer;
+            font-weight: 400;
+            letter-spacing: 0;
+            margin: 0;
+        }
+
+        .ministerio-item:has(input:checked) { background: rgba(21, 101, 192, 0.2); border-color: var(--azul-brillante); }
+        .ministerio-item:has(input:checked) label { color: var(--blanco); }
+
+        /* ========================
+           CHECKBOX UNIDOS PODEMOS
+        ======================== */
+        .up-grupo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(10, 42, 74, 0.4);
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transicion);
+            margin-top: 4px;
+        }
+
+        .up-grupo:hover { background: rgba(10, 42, 74, 0.7); border-color: rgba(66, 165, 245, 0.4); }
+
+        .up-grupo input[type="checkbox"] {
             width: 18px;
             height: 18px;
             min-width: 18px;
             padding: 0;
-            border-radius: 4px;
             cursor: pointer;
             accent-color: var(--azul-brillante);
-            margin-top: 1px;
-            position: relative;
-            z-index: 2;
-            pointer-events: all;
-            pointer-events: all; /* Importante para que el check reaccione */
-            position: relative;
-            z-index: 10;
+            appearance: checkbox;
+            -webkit-appearance: checkbox;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            flex-shrink: 0;
         }
 
-        .checkbox-texto {
-            font-size: 1.4rem;
-            color: var(--azul-palido);
-            line-height: 2.5;
-            font-weight: 300;
-            
-        }
+        .up-grupo input[type="checkbox"]:focus { box-shadow: none; border: none; }
 
-        /* ========================
-           BOTON ENVIAR
-        ======================== */
+        .up-grupo span { font-size: 0.88rem; color: var(--azul-palido); font-weight: 400; line-height: 1.4; }
+
+        .up-grupo:has(input:checked) { background: rgba(21, 101, 192, 0.2); border-color: var(--azul-brillante); }
+        .up-grupo:has(input:checked) span { color: var(--blanco); }
+
+        /* BOTON */
         .btn-enviar {
             width: 100%;
             padding: 16px 32px;
@@ -553,153 +342,69 @@
             margin-top: 8px;
         }
 
-        .btn-enviar::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
-            opacity: 0;
-            transition: var(--transicion);
-        }
+        .btn-enviar::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%); opacity: 0; transition: var(--transicion); }
+        .btn-enviar:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30, 136, 229, 0.4); }
+        .btn-enviar:hover::before { opacity: 1; }
+        .btn-enviar:active { transform: translateY(0); }
 
-        .btn-enviar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(30, 136, 229, 0.4);
-        }
+        .nota { text-align: center; margin-top: 24px; font-size: 0.75rem; color: var(--azul-palido); opacity: 0.5; line-height: 1.6; }
 
-        .btn-enviar:hover::before {
-            opacity: 1;
-        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp   { from { opacity: 0; transform: translateY(24px);  } to { opacity: 1; transform: translateY(0); } }
 
-        .btn-enviar:active {
-            transform: translateY(0);
-        }
-
-        /* ========================
-           NOTA INFERIOR
-        ======================== */
-        .nota {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 0.75rem;
-            color: var(--azul-palido);
-            opacity: 0.5;
-            line-height: 1.6;
-        }
-
-        /* ========================
-           OVERLAY
-        ======================== */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(2, 11, 24, 0.5);
-            z-index: 998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-            backdrop-filter: blur(2px);
-        }
-
-        .overlay.activo {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* ========================
-           ANIMACIONES
-        ======================== */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========================
-           RESPONSIVE
-        ======================== */
         @media (max-width: 600px) {
             .grid-2 { grid-template-columns: 1fr; }
+            .ministerios-grid { grid-template-columns: 1fr; }
             .tarjeta { padding: 28px 20px; }
             .formulario-wrapper { padding: 32px 16px 32px; }
-            .topbar-titulo { font-size: 0.85rem; letter-spacing: 0.03em; }
+            .topbar-titulo { font-size: 1rem; letter-spacing: 0.03em; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ========================
-         TOP BAR
-    ======================== -->
+    <!-- TOP BAR -->
     <header class="topbar">
-
-        <!-- LOGO: reemplaza el comentario con tu imagen -->
-        <!-- Ejemplo: <img src="tu-logo.png" alt="Logo"> -->
         <div class="topbar-logo">
             <span class="logo-placeholder"><img src="VOI-Logo.png" alt="Logo"></span>
-            <!-- <img src="tu-logo.png" alt="Logo de la iglesia"> -->
         </div>
-
-        <!-- Título centrado -->
         <p class="topbar-titulo">Alcance Victoria <span>Mexicali Centro</span></p>
-
         <button class="hamburger-btn" id="btnHamburguesa" aria-label="Menú">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </button>
     </header>
 
-    <!-- ========================
-         PANEL LATERAL
-    ======================== -->
+    <!-- PANEL LATERAL -->
     <aside class="panel-lateral" id="panelLateral">
         <p class="panel-titulo">Contacto</p>
-
         <div class="panel-seccion">
-
             <div class="panel-contacto-item">
                 <span class="icono">📞</span>
                 <div>
                     <p class="panel-contacto-label">Teléfono 1</p>
-                    <!-- Modifica el número aquí -->
                     <a href="tel:+526861234567" class="panel-contacto-valor">+52 686 123 4567</a>
                 </div>
             </div>
-
             <div class="panel-contacto-item">
                 <span class="icono">📱</span>
                 <div>
                     <p class="panel-contacto-label">Teléfono 2</p>
-                    <!-- Modifica el número aquí -->
                     <a href="tel:+526867654321" class="panel-contacto-valor">+52 686 765 4321</a>
                 </div>
             </div>
-
             <div class="panel-contacto-item">
                 <span class="icono">📘</span>
                 <div>
                     <p class="panel-contacto-label">Facebook</p>
-                    <!-- Modifica el enlace y nombre aquí -->
-                    <a href="https://www.facebook.com/avmxlc" target="_blank" class="panel-contacto-valor">
-                        AV - Mxli Centro
-                    </a>
+                    <a href="https://www.facebook.com/avmxlc" target="_blank" class="panel-contacto-valor">AV - Mxli Centro</a>
                 </div>
             </div>
-
         </div>
     </aside>
 
-    <!-- Overlay al abrir menú -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- ========================
-         FORMULARIO
-    ======================== -->
+    <!-- FORMULARIO -->
     <main class="contenido">
         <div class="formulario-wrapper">
 
@@ -716,22 +421,18 @@
                     <div class="seccion">
                         <p class="seccion-titulo">Datos personales</p>
                         <div class="grid-2">
-
                             <div class="grupo completo">
                                 <label>Nombre y apellido <span class="requerido">*</span></label>
                                 <input id="nombre" type="text" placeholder="Ej. Juan García López" required>
                             </div>
-
                             <div class="grupo">
                                 <label>Edad <span class="requerido">*</span></label>
                                 <input id="edad" type="number" placeholder="Ej. 28" min="1" max="120" required>
                             </div>
-
                             <div class="grupo">
                                 <label>Fecha de nacimiento <span class="requerido">*</span></label>
                                 <input id="fechaNacimiento" type="date" required>
                             </div>
-
                         </div>
                     </div>
 
@@ -739,43 +440,76 @@
                     <div class="seccion">
                         <p class="seccion-titulo">Información de contacto</p>
                         <div class="grid-2">
-
-                            <div class="grupo">
+                            <div class="grupo completo">
                                 <label>Número de teléfono <span class="requerido">*</span></label>
                                 <input id="telefono" type="tel" placeholder="Ej. +52 55 1234 5678" required>
                             </div>
-
                             <div class="grupo completo">
                                 <label>Dirección</label>
                                 <input id="direccion" type="text" placeholder="Calle, número, colonia, ciudad">
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="grupo completo">
-                                 <label>Selecciona una categoría <span class="requerido">*</span></label>
-                                 <select id="miLista" required>
-                                 <option value="" disabled selected>Elige una opción...</option>
-                                 <option value="Ninguni">Ninguno</option>
-                                 <option value="Alabanza">Alabanza</option>
-                                 <option value="Maestro">Maestros</option>
-                                 <option value="Ujier">Ujieres</option>
-                                 <option value="Multimedia">Multimedia</option>
-                                 <option value="Thirdwave">ThirdWave</option>
-                                 <option value="Hombre de Valor">Hombres de Valor</option>
-                                 <option value="Seguimiento">Seguimiento</option>
-                                 <option value="Liderazgo">Liderazgo</option>
-                                 <option value="Guardia">Guardias</option>
-                                 <option value="Mujeres Unidas en Ministerio">Mujeres Unidas en Ministerio</option>
-                         </select>
-                          </div>
+                    <!-- MINISTERIOS -->
+                    <div class="seccion">
+                        <p class="seccion-titulo">Ministerio</p>
 
-                            <div class="grupo completo">
-                                <label class="checkbox-grupo" for="miCasilla">
-                                <input type="checkbox" id="miCasilla" class="cajita">
-                                
-                                </label>
-                                <span class="checkbox-texto">Miembro de Unidos Podemos</span>
-                                </div>
+                        <label style="margin-bottom: 12px; display: block;">
+                            Selecciona los ministerios en los que participas
+                        </label>
 
+                        <!-- Agrega o quita ministerios aquí -->
+                        <div class="ministerios-grid" id="ministeriosGrid">
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-alabanza" value="Alabanza">
+                                <label for="min-alabanza">Alabanza</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-maestros" value="Maestros">
+                                <label for="min-maestros">Maestros</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-ujieres" value="Ujieres">
+                                <label for="min-ujieres">Ujieres</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-multimedia" value="Multimedia">
+                                <label for="min-multimedia">Multimedia</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-thirdwave" value="ThirdWave">
+                                <label for="min-thirdwave">ThirdWave</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-hombres" value="Hombres de Valor">
+                                <label for="min-hombres">Hombres de Valor</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-seguimiento" value="Seguimiento">
+                                <label for="min-seguimiento">Seguimiento</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-liderazgo" value="Liderazgo">
+                                <label for="min-liderazgo">Liderazgo</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-guardias" value="Guardias">
+                                <label for="min-guardias">Guardias</label>
+                            </div>
+                            <div class="ministerio-item">
+                                <input type="checkbox" id="min-mujeres" value="Mujeres Unidas en Ministerio">
+                                <label for="min-mujeres">Mujeres Unidas en Ministerio</label>
+                            </div>
+                        </div>
+
+                        <!-- UNIDOS PODEMOS -->
+                        <div style="margin-top: 16px;">
+                            <label style="margin-bottom: 8px; display: block;">Unidos Podemos</label>
+                            <div class="up-grupo">
+                                <input type="checkbox" id="miCasilla">
+                                <span>Soy miembro de Unidos Podemos</span>
+                            </div>
                         </div>
                     </div>
 
@@ -786,7 +520,6 @@
                             <label>Cuéntanos tu petición</label>
                             <textarea id="peticion" placeholder="Escribe aquí tu petición de oración. Toda información es confidencial y será tratada con respeto..."></textarea>
                         </div>
-
                     </div>
 
                     <!-- MENSAJE DE ESTADO -->
@@ -804,17 +537,11 @@
 
                 </form>
             </div>
-
         </div>
     </main>
 
-    <!-- ========================
-         JAVASCRIPT
-    ======================== -->
     <script>
-        // ========================
         // MENU HAMBURGUESA
-        // ========================
         const btnHamburguesa = document.getElementById('btnHamburguesa');
         const panelLateral   = document.getElementById('panelLateral');
         const overlay        = document.getElementById('overlay');
@@ -832,64 +559,54 @@
                 toggleMenu();
         });
 
-        // ========================
         // ENVIO A GOOGLE SHEETS
-        // ========================
-        const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbyAGovk7NR1bq13qpz-GMuanV2zfO6niH9u0Mj3HsEu3g0PRur6Lm-OgkAnykaO5nCu/exec";
+        const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbwnaV01hygOYFA2-hFh5TxsDFvttI0I7TTskaVKfcJr9yhGGpCsxccYSmma6O3cF77a/exec";
 
         const formulario    = document.getElementById('formularioRegistro');
         const btnEnviar     = document.getElementById('btnEnviar');
         const mensajeEstado = document.getElementById('mensajeEstado');
 
         function mostrarMensaje(texto, exito) {
-            mensajeEstado.style.display      = 'block';
-            mensajeEstado.style.background   = exito ? 'rgba(21, 101, 192, 0.2)' : 'rgba(200, 50, 50, 0.2)';
-            mensajeEstado.style.border       = exito ? '1px solid #1565C0' : '1px solid #c83232';
-            mensajeEstado.style.color        = exito ? '#90CAF9' : '#ff8080';
-            mensajeEstado.textContent        = texto;
+            mensajeEstado.style.display    = 'block';
+            mensajeEstado.style.background = exito ? 'rgba(21, 101, 192, 0.2)' : 'rgba(200, 50, 50, 0.2)';
+            mensajeEstado.style.border     = exito ? '1px solid #1565C0' : '1px solid #c83232';
+            mensajeEstado.style.color      = exito ? '#90CAF9' : '#ff8080';
+            mensajeEstado.textContent      = texto;
         }
 
         formulario.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // 1. Obtenemos el valor del input (llega como YYYY-MM-DD)
+            // Fecha en texto legible
             const fechaInput = document.getElementById('fechaNacimiento').value;
             let fechaEnTexto = "";
-
-            // 2. Si el usuario seleccionó una fecha, la transformamos a texto
             if (fechaInput) {
-                const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
-                const partes = fechaInput.split('-'); // Separa en [Año, Mes, Día]
-                
-                const anio = partes[0];
-                const mes = meses[parseInt(partes[1]) - 1]; // Busca el nombre del mes en la lista
-                const dia = partes[2];
-                
-                // Crea el formato deseado (Ej: "15 de mayo de 2007")
-                // Si lo prefieres con guiones, cámbialo a: `${dia}-${mes}-${anio}`
-                fechaEnTexto = `${dia} de ${mes} de ${anio}`; 
+                const meses  = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+                const partes = fechaInput.split('-');
+                fechaEnTexto = `${partes[2]} de ${meses[parseInt(partes[1]) - 1]} de ${partes[0]}`;
             }
 
-            // 3. Guardamos los datos incluyendo la nueva fecha en texto
+            // Recoger todos los ministerios marcados y unirlos con coma
+            const checkboxesMinisterio      = document.querySelectorAll('#ministeriosGrid input[type="checkbox"]:checked');
+            const ministeriosSeleccionados  = Array.from(checkboxesMinisterio)
+                .map(cb => cb.value)
+                .join(', ');
+
             const datos = {
                 nombre:          document.getElementById('nombre').value.trim(),
                 edad:            document.getElementById('edad').value.trim(),
-                fechaNacimiento: fechaEnTexto, 
+                fechaNacimiento: fechaEnTexto,
                 telefono:        document.getElementById('telefono').value.trim(),
                 direccion:       document.getElementById('direccion').value.trim(),
-                peticion:        document.getElementById('peticion').value.trim(),
-                
-                // ---- AGREGA ESTAS DOS LÍNEAS AQUÍ ABAJO ----
-                ministerio:   document.getElementById('miLista').value,
-                unidospodemos:         document.getElementById('miCasilla').checked ? "si" : "no"
+                ministerio:      ministeriosSeleccionados || "Ninguno",
+                unidospodemos:   document.getElementById('miCasilla').checked ? "Sí" : "No",
+                peticion:        document.getElementById('peticion').value.trim()
             };
 
-            // Cambiar el botón mientras envía
-            btnEnviar.textContent  = 'Enviando...';
-            btnEnviar.disabled     = true;
+            btnEnviar.textContent       = 'Enviando...';
+            btnEnviar.disabled          = true;
             mensajeEstado.style.display = 'none';
 
-            // Enviar los datos al Apps Script
             fetch(URL_SCRIPT, {
                 method:  'POST',
                 mode:    'no-cors',
@@ -897,10 +614,10 @@
                 body:    JSON.stringify(datos)
             })
             .then(() => {
-                // no-cors no nos deja leer la respuesta
-                // pero si llegó aquí es porque se envió correctamente
                 mostrarMensaje('✓ Registro enviado correctamente. ¡Gracias!', true);
                 formulario.reset();
+                // Desmarcar checkboxes de ministerio manualmente
+                document.querySelectorAll('#ministeriosGrid input[type="checkbox"]').forEach(cb => cb.checked = false);
             })
             .catch(() => {
                 mostrarMensaje('✗ Hubo un error al enviar. Verifica tu conexión e intenta de nuevo.', false);
