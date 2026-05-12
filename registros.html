@@ -6,9 +6,7 @@
     <title>Registros — Alcance Victoria</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="VOI-Logo.ico" />
-    <!-- Enlace al manifiesto -->
     <link rel="manifest" href="manifest2.json">
-    <!-- Optimización para iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="AV Informacion">
@@ -182,23 +180,35 @@
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp   { from { opacity: 0; transform: translateY(24px);  } to { opacity: 1; transform: translateY(0); } }
 
+        /* ========================
+           ADAPTABILIDAD MÓVIL
+        ======================== */
         @media (max-width: 600px) {
             .wrapper { padding: 32px 16px; }
             .topbar-titulo { font-size: 1rem; letter-spacing: 0.03em; }
             .controles { flex-direction: column; align-items: stretch; }
-            .botones-accion { justify-content: space-between; }
+            
+            /* Corrección para apilar los botones */
+            .botones-accion { 
+                display: grid; 
+                grid-template-columns: 1fr 1fr; 
+                gap: 10px; 
+            }
+            .botones-accion a.btn-control {
+                grid-column: 1 / -1; 
+                text-align: center; 
+            }
+            
             .form-grid { grid-template-columns: 1fr; }
         }
 
-        a
-        {
+        a {
             text-decoration: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- TOP BAR -->
     <header class="topbar">
         <div class="topbar-logo">
             <img src="VOI-Logo.png" alt="Logo">
@@ -209,7 +219,6 @@
         </button>
     </header>
 
-    <!-- PANEL LATERAL -->
     <aside class="panel-lateral" id="panelLateral">
         <p class="panel-titulo">✝ Versiculo</p>
         <div class="panel-seccion">
@@ -225,7 +234,6 @@
 
     <div class="overlay" id="overlay"></div>
 
-    <!-- CONTENIDO -->
     <main class="contenido">
         <div class="wrapper">
 
@@ -235,7 +243,6 @@
                 <p>Información enviada a través del formulario de registro.</p>
             </div>
 
-            <!-- CONTROLES -->
             <div class="controles">
                 <div class="buscador">
                     <span class="buscador-icono">🔍</span>
@@ -249,7 +256,6 @@
                 </div>
             </div>
 
-            <!-- TABLA -->
             <div class="tabla-contenedor" id="contenedorTabla">
                 <div class="tabla-scroll">
                     <table id="tablaRegistros">
@@ -285,7 +291,6 @@
         </div>
     </main>
 
-    <!-- MODAL DE EDICIÓN -->
     <div class="modal-fondo" id="modalEdicion">
         <div class="modal-caja">
             <h2>Editar Registro</h2>
